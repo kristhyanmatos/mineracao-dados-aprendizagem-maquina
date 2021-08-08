@@ -1,6 +1,8 @@
 import ssl
 import pandas
-
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -31,6 +33,7 @@ dados_colunas_uteis = dados_brutos[
 # Remove ruídos
 dados_sem_ruidos = dados_colunas_uteis[
     (dados_colunas_uteis["GRAU_RISCO"] != "Não informado")
+    & (dados_colunas_uteis["GRAU_RISCO"] != "Grau IV  - Óbito")
     & (dados_colunas_uteis["TIPO_HEMOCOMPONENTE"] != "NÃO INFORMADO")
     & (dados_colunas_uteis["DS_TEMPORALIDADE_REACAO"] != "Não informado")
     & (dados_colunas_uteis["TIPO_REACAO_TRANSFUSIONAL"].notnull())
@@ -83,7 +86,6 @@ dados_sem_ruidos["GRAU_RISCO"].replace(
         "Grau I   - Leve": 0,
         "Grau II  - Moderado": 1,
         "Grau III - Grave": 2,
-        "Grau IV  - Óbito": 3,
     },
     inplace=True,
 )
@@ -160,6 +162,11 @@ dados_sem_ruidos["DS_TEMPORALIDADE_REACAO"].replace(
 dados_sem_ruidos.to_csv("dados.csv")
 
 #
+print("Quantidad de dados: ")
+
+print("Grau I - Leve: ", len(dados_sem_ruidos[dados_sem_ruidos["GRAU_RISCO"] == 0]))
+print(len(dados_sem_ruidos[dados_sem_ruidos["GRAU_RISCO"] == 1]))
+print(len(dados_sem_ruidos[dados_sem_ruidos["GRAU_RISCO"] == 2]))
 
 entradas = dados_sem_ruidos[
     [
@@ -173,6 +180,28 @@ entradas = dados_sem_ruidos[
 ]
 saidas = dados_sem_ruidos["GRAU_RISCO"]
 
+numero_neighbors = 10
 
-print(entradas)
-print(saidas)
+entradas_treino, entradas_teste, saidas_treino, saidas_teste = train_test_split(
+    entradas,
+    saidas,
+    test_size=0.3,
+    random_state=13,
+)
+
+modelo = KNeighborsClassifier(n_neighbors=numero_neighbors)
+modelo.fit(entradas_treino, saidas_treino)
+
+resultado = modelo.predict(entradas_teste)
+
+print(
+    classification_report(
+        saidas_teste,
+        resultado,
+        target_names=[
+            "Grau I - Leve",
+            "Grau II - Moderado",
+            "Grau III - Grave",
+        ],
+    )
+)

@@ -57,7 +57,6 @@
         [00] - Grau I - Leve
         [01] - Grau II - Moderado
         [02] - Grau III - Grave
-        [03] - Grau IV - Óbito
 
     - TIPO_HEMOCOMPONENTE -
         [00] - OUTRO
