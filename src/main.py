@@ -24,7 +24,6 @@ dados_brutos = dados_brutos[
         "TIPO_HEMOCOMPONENTE",
         "FAIXA_ETARIA_PACIENTE",
         "DS_TEMPORALIDADE_REACAO",
-        "TIPO_EVENTO_ADVERSO",
     ]
 ]
 
@@ -32,11 +31,11 @@ dados_brutos = dados_brutos[
 dados_brutos = dados_brutos[
     (dados_brutos["GRAU_RISCO"] != "Não informado")
     & (dados_brutos["TIPO_HEMOCOMPONENTE"] != "NÃO INFORMADO")
+    & (dados_brutos["DS_TEMPORALIDADE_REACAO"] != "Não informado")
     & (dados_brutos["TIPO_REACAO_TRANSFUSIONAL"].notnull())
 ]
 
 # Normatização dos dados
-
+print(dados_brutos)
 
 dados_brutos.to_csv("dados.csv")
-print(dados_brutos)
