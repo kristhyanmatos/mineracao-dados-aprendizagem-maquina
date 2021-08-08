@@ -159,8 +159,6 @@ class PreProcesssamentoDados:
             inplace=True,
         )
 
-        self.dados_sem_ruidos.to_csv("dados.csv")
-
         #
         print("Quantidade de dados: ")
 
