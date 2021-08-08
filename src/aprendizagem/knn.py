@@ -1,12 +1,11 @@
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
-from pre_processamento_dados import PreProcesssamentoDados
 
 
 class AprendizagemKNN:
-    def __init__(self, numero_neighbors) -> None:
-        __dados = PreProcesssamentoDados()
+    def __init__(self, numero_neighbors, dados) -> None:
+        __dados = dados
 
         self.numero_neighbors = numero_neighbors
 

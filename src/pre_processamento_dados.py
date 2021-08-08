@@ -162,14 +162,20 @@ class PreProcesssamentoDados:
         self.dados_sem_ruidos.to_csv("dados.csv")
 
         #
-        print("Quantidad de dados: ")
+        print("Quantidade de dados: ")
 
         print(
             "Grau I - Leve: ",
             len(self.dados_sem_ruidos[self.dados_sem_ruidos["GRAU_RISCO"] == 0]),
         )
-        print(len(self.dados_sem_ruidos[self.dados_sem_ruidos["GRAU_RISCO"] == 1]))
-        print(len(self.dados_sem_ruidos[self.dados_sem_ruidos["GRAU_RISCO"] == 2]))
+        print(
+            "Grau II - Médio: ",
+            len(self.dados_sem_ruidos[self.dados_sem_ruidos["GRAU_RISCO"] == 1]),
+        )
+        print(
+            "Grau III - Grave: ",
+            (len(self.dados_sem_ruidos[self.dados_sem_ruidos["GRAU_RISCO"] == 2])),
+        )
 
         self.entradas = self.dados_sem_ruidos[
             [
