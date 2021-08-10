@@ -10,7 +10,10 @@ class AprendizagemArvoreDecisao:
     def __init__(self, dados) -> None:
         __dados = dados
         entradas_treino, entradas_teste, saidas_treino, saidas_teste = train_test_split(
-            __dados.entradas, __dados.saidas, test_size=0.3, random_state=13
+            __dados.entradas_arvore_decisao,
+            __dados.saidas,
+            test_size=0.3,
+            random_state=13,
         )
 
         arvore = DecisionTreeRegressor(max_depth=3)

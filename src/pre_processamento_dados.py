@@ -185,4 +185,16 @@ class PreProcesssamentoDados:
                 "DS_TEMPORALIDADE_REACAO",
             ]
         ]
+        self.entradas_arvore_decisao = self.dados_sem_ruidos[
+            [
+                "STATUS_ANALISE",
+                "PRODUTO_MOTIVO",
+                "TIPO_REACAO_TRANSFUSIONAL",
+                "TIPO_HEMOCOMPONENTE",
+                "FAIXA_ETARIA_PACIENTE",
+                "DS_TEMPORALIDADE_REACAO",
+                "GRAU_RISCO",
+            ]
+        ]
+        
         self.saidas = self.dados_sem_ruidos["GRAU_RISCO"]
